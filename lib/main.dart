@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -37,11 +39,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    log('MyHomePage Build...');
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: MyInheritedWidget(child: MyCenterWidget(), myData: _counter,),
+      body: MyInheritedWidget(
+        child: MyCenterWidget(),
+        myData: _counter,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
@@ -54,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
 class MyCenterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    log('MyCenter Build...');
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -69,6 +76,7 @@ class MyTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int _counter = MyInheritedWidget.of(context).myData;
+    log('MyText Build...$_counter');
     return Text('Tui là widget Text. Data của tui hiện tại là: $_counter');
   }
 }
