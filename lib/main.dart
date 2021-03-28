@@ -41,25 +41,50 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
+      body: MyCenterWidget(counter: _counter),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
+    );
+  }
+}
+
+class MyCenterWidget extends StatelessWidget {
+  const MyCenterWidget({
+    Key key,
+    @required int counter,
+  }) : _counter = counter, super(key: key);
+
+  final int _counter;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          MyTextWidget(counter: _counter),
+        ],
+      ),
+    );
+  }
+}
+
+class MyTextWidget extends StatelessWidget {
+  const MyTextWidget({
+    Key key,
+    @required int counter,
+  }) : _counter = counter, super(key: key);
+
+  final int _counter;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Tui là widget Text. Data của tui hiện tại là: $_counter',
+      style: Theme.of(context).textTheme.headline4,
     );
   }
 }
