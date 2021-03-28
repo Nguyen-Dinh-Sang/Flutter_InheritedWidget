@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: MyCenterWidget(counter: _counter),
+      body: MyInheritedWidget(child: MyCenterWidget(), myData: _counter,),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
@@ -52,20 +52,13 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class MyCenterWidget extends StatelessWidget {
-  const MyCenterWidget({
-    Key key,
-    @required int counter,
-  }) : _counter = counter, super(key: key);
-
-  final int _counter;
-
   @override
   Widget build(BuildContext context) {
     return Center(
-       child: Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          MyTextWidget(counter: _counter),
+          MyTextWidget(),
         ],
       ),
     );
@@ -73,19 +66,10 @@ class MyCenterWidget extends StatelessWidget {
 }
 
 class MyTextWidget extends StatelessWidget {
-  const MyTextWidget({
-    Key key,
-    @required int counter,
-  }) : _counter = counter, super(key: key);
-
-  final int _counter;
-
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Tui là widget Text. Data của tui hiện tại là: $_counter',
-      style: Theme.of(context).textTheme.headline4,
-    );
+    final int _counter = MyInheritedWidget.of(context).myData;
+    return Text('Tui là widget Text. Data của tui hiện tại là: $_counter');
   }
 }
 
@@ -103,7 +87,7 @@ class MyInheritedWidget extends InheritedWidget {
   }
 
   // 4
-  static MyInheritedWidget of(BuildContext context){
+  static MyInheritedWidget of(BuildContext context) {
     // 5
     return context.dependOnInheritedWidgetOfExactType<MyInheritedWidget>();
   }
