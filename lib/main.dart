@@ -14,18 +14,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(
+          title: 'Flutter Demo Home Page', myChild: MyCenterWidget()),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
+  final Widget myChild;
   final String title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
+
+  MyHomePage({Key key, this.myChild, this.title}) : super(key: key);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -45,8 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: MyInheritedWidget(
-        child: MyCenterWidget(),
         myData: _counter,
+        child: widget.myChild,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
@@ -91,7 +93,8 @@ class MyInheritedWidget extends InheritedWidget {
   // 3
   @override
   bool updateShouldNotify(MyInheritedWidget oldWidget) {
-    return false;
+    // return myData %2 == 1; kiểm tra sự thay đổi của data để quyết định rebuild hay không
+    return myData != oldWidget.myData;
   }
 
   // 4
